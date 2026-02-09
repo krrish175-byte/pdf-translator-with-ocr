@@ -12,9 +12,10 @@ from ocr_processor import OCRProcessor
 class PDFProcessor:
     """Handles PDF text extraction, image processing, and PDF generation."""
     
-    def __init__(self, translate_text: bool = True, translate_images: bool = True):
-        self.translator = TranslationService()
-        self.ocr_processor = OCRProcessor()
+    def __init__(self, source_lang: str = 'en', target_lang: str = 'ja',
+                 translate_text: bool = True, translate_images: bool = True):
+        self.translator = TranslationService(source_lang, target_lang)
+        self.ocr_processor = OCRProcessor(source_lang, target_lang)
         self.translate_text = translate_text
         self.translate_images = translate_images
     
@@ -159,12 +160,26 @@ class PDFProcessor:
                     if 'translated' in block and block['translated'] != block['text']:
                         bbox = fitz.Rect(block['bbox'])
                         
-                        # Add redaction annotation (this marks text for removal)
-                        # Use transparent fill so we don't add white boxes
+                        # Sample background color from near the text area
+                        try:
+                            pix = page.get_pixmap(clip=bbox, alpha=False)
+                            samples = pix.samples
+                            if len(samples) >= 3:
+                                # Get average color from the pixmap
+                                r = samples[0] / 255.0
+                                g = samples[1] / 255.0
+                                b = samples[2] / 255.0
+                                fill_color = (r, g, b)
+                            else:
+                                fill_color = (1, 1, 1)  # White fallback
+                        except:
+                            fill_color = (1, 1, 1)  # White fallback
+                        
+                        # Add redaction annotation with sampled background color
                         page.add_redact_annot(
                             bbox,
                             text="",  # No replacement text in redaction
-                            fill=False  # Don't fill with color - keeps background
+                            fill=fill_color  # Use sampled background color
                         )
                 
                 # Apply all redactions (removes the original text)

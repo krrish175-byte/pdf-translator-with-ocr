@@ -63,6 +63,9 @@ def upload_file():
     # Get options
     translate_text = request.form.get('translate_text', 'true').lower() == 'true'
     translate_images = request.form.get('translate_images', 'true').lower() == 'true'
+    source_lang = request.form.get('source_lang', 'en')
+    target_lang = request.form.get('target_lang', 'ja')
+    print(f"UPLOAD: source={source_lang}, target={target_lang}")
     
     # Store task info
     tasks[task_id] = {
@@ -73,6 +76,8 @@ def upload_file():
         'file_path': str(file_path),
         'translate_text': translate_text,
         'translate_images': translate_images,
+        'source_lang': source_lang,
+        'target_lang': target_lang,
         'output_path': None,
         'error': None
     }
@@ -110,6 +115,8 @@ def translate(task_id):
             
             # Process PDF
             processor = PDFProcessor(
+                source_lang=task.get('source_lang', 'en'),
+                target_lang=task.get('target_lang', 'ja'),
                 translate_text=task['translate_text'],
                 translate_images=task['translate_images']
             )

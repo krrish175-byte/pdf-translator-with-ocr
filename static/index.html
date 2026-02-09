@@ -51,9 +51,33 @@
                     <button class="btn-remove" id="btn-remove" title="Remove file">×</button>
                 </div>
 
+                <!-- Language Selection -->
+                <div class="options-section">
+                    <h3>Language</h3>
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="flex: 1;">
+                            <label for="source-lang" style="font-size: 0.75rem; color: #666; display: block; margin-bottom: 0.25rem;">From:</label>
+                            <select id="source-lang" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 0.5rem; font-size: 0.9rem;">
+                                <option value="en" selected>English</option>
+                                <option value="ja">日本語 (Japanese)</option>
+                                <option value="zh">中文 (Chinese)</option>
+                            </select>
+                        </div>
+                        <span style="font-size: 1.5rem; color: #dc2626; margin-top: 1rem;">→</span>
+                        <div style="flex: 1;">
+                            <label for="target-lang" style="font-size: 0.75rem; color: #666; display: block; margin-bottom: 0.25rem;">To:</label>
+                            <select id="target-lang" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 0.5rem; font-size: 0.9rem;">
+                                <option value="ja" selected>日本語 (Japanese)</option>
+                                <option value="en">English</option>
+                                <option value="zh">中文 (Chinese)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Translation Options -->
                 <div class="options-section">
-                    <h3>Translation Options</h3>
+                    <h3>Options</h3>
                     <div class="options-grid">
                         <label class="option-item">
                             <input type="checkbox" id="opt-text" checked>

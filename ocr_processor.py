@@ -9,14 +9,22 @@ import numpy as np
 from io import BytesIO
 from translator import TranslationService
 
+# Tesseract language codes
+TESSERACT_LANGS = {
+    'en': 'eng',
+    'ja': 'jpn',
+    'zh': 'chi_sim'
+}
+
 
 class OCRProcessor:
     """Handles OCR text extraction and image text overlay."""
     
-    def __init__(self):
-        self.translator = TranslationService()
-        # Configure Tesseract for English
-        self.tesseract_config = '--oem 3 --psm 6 -l eng'
+    def __init__(self, source_lang: str = 'en', target_lang: str = 'ja'):
+        self.translator = TranslationService(source_lang, target_lang)
+        # Configure Tesseract for source language
+        tess_lang = TESSERACT_LANGS.get(source_lang, 'eng')
+        self.tesseract_config = f'--oem 3 --psm 6 -l {tess_lang}'
     
     def extract_text_from_image(self, image: Image.Image) -> list[dict]:
         """

@@ -1,17 +1,28 @@
 """
-Translation service wrapper for English to Japanese translation.
+Translation service wrapper for multi-language PDF translation.
 Uses deep-translator for better compatibility.
+Supports: English (en), Japanese (ja), Chinese (zh)
 """
 
 from deep_translator import GoogleTranslator
 import time
 
+# Language codes for deep-translator
+LANGUAGE_CODES = {
+    'en': 'english',
+    'ja': 'japanese', 
+    'zh': 'chinese (simplified)'
+}
+
 
 class TranslationService:
-    """Handles text translation from English to Japanese."""
+    """Handles text translation between languages."""
     
-    def __init__(self):
-        self.translator = GoogleTranslator(source='en', target='ja')
+    def __init__(self, source_lang: str = 'en', target_lang: str = 'ja'):
+        source = LANGUAGE_CODES.get(source_lang, 'english')
+        target = LANGUAGE_CODES.get(target_lang, 'japanese')
+        self.translator = GoogleTranslator(source=source, target=target)
+        print(f"Translator: {source} → {target}")
     
     def translate_text(self, text: str, max_retries: int = 3) -> str:
         """

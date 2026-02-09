@@ -147,6 +147,15 @@ class PDFTranslator {
             formData.append('translate_text', this.optText.checked);
             formData.append('translate_images', this.optImages.checked);
 
+            // Add language selections
+            const sourceLangEl = document.getElementById('source-lang');
+            const targetLangEl = document.getElementById('target-lang');
+            const sourceLang = sourceLangEl ? sourceLangEl.value : 'en';
+            const targetLang = targetLangEl ? targetLangEl.value : 'ja';
+            formData.append('source_lang', sourceLang);
+            formData.append('target_lang', targetLang);
+            console.log('Languages:', sourceLang, '→', targetLang);
+
             const uploadResponse = await fetch('/api/upload', {
                 method: 'POST',
                 body: formData
