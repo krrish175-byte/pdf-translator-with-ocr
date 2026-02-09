@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Translator - English to Japanese</title>
+    <meta name="description" content="Translate PDF documents from English to Japanese with OCR support for images">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Background Elements -->
+        <div class="bg-gradient"></div>
+        <div class="bg-pattern"></div>
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">翻</span>
+                <h1>PDF Translator</h1>
+            </div>
+            <p class="tagline">English → 日本語</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section id="upload-section" class="card upload-section">
+                <div class="upload-zone" id="upload-zone">
+                    <div class="upload-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <h2>Drop your PDF here</h2>
+                    <p>or click to browse</p>
+                    <input type="file" id="file-input" accept=".pdf" hidden>
+                </div>
+                
+                <div id="file-info" class="file-info hidden">
+                    <div class="file-icon">📄</div>
+                    <div class="file-details">
+                        <span class="file-name" id="file-name"></span>
+                        <span class="file-size" id="file-size"></span>
+                    </div>
+                    <button class="btn-remove" id="btn-remove" title="Remove file">×</button>
+                </div>
+
+                <!-- Translation Options -->
+                <div class="options-section">
+                    <h3>Translation Options</h3>
+                    <div class="options-grid">
+                        <label class="option-item">
+                            <input type="checkbox" id="opt-text" checked>
+                            <span class="checkbox-custom"></span>
+                            <div class="option-content">
+                                <span class="option-title">Translate Text</span>
+                                <span class="option-desc">Extract and translate PDF text content</span>
+                            </div>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" id="opt-images" checked>
+                            <span class="checkbox-custom"></span>
+                            <div class="option-content">
+                                <span class="option-title">Translate Images (OCR)</span>
+                                <span class="option-desc">Detect and translate text within images</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <button class="btn-primary" id="btn-translate" disabled>
+                    <span class="btn-text">Start Translation</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </section>
+
+            <!-- Progress Section -->
+            <section id="progress-section" class="card progress-section hidden">
+                <div class="progress-header">
+                    <h2>Translating...</h2>
+                    <span class="progress-percent" id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <p class="progress-message" id="progress-message">Initializing...</p>
+                <div class="processing-animation">
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring delay-1"></div>
+                    <div class="pulse-ring delay-2"></div>
+                    <span class="processing-icon">翻</span>
+                </div>
+            </section>
+
+            <!-- Result Section -->
+            <section id="result-section" class="card result-section hidden">
+                <div class="result-header">
+                    <div class="success-icon">✓</div>
+                    <h2>Translation Complete!</h2>
+                    <p>Your PDF has been successfully translated to Japanese</p>
+                </div>
+
+                <!-- Preview -->
+                <div class="preview-container">
+                    <h3>Preview</h3>
+                    <div class="preview-navigation">
+                        <button class="btn-nav" id="btn-prev" disabled>←</button>
+                        <span class="page-indicator">
+                            Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+                        </span>
+                        <button class="btn-nav" id="btn-next">→</button>
+                    </div>
+                    <div class="preview-frame">
+                        <img id="preview-image" src="" alt="PDF Preview">
+                        <div class="preview-loading" id="preview-loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn-secondary" id="btn-new">
+                        <span>Translate Another</span>
+                    </button>
+                    <button class="btn-primary" id="btn-download">
+                        <span class="btn-text">Download PDF</span>
+                        <span class="btn-icon">↓</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section id="error-section" class="card error-section hidden">
+                <div class="error-icon">!</div>
+                <h2>Translation Failed</h2>
+                <p class="error-message" id="error-message"></p>
+                <button class="btn-primary" id="btn-retry">Try Again</button>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>PDF Translator with OCR • English → Japanese</p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
