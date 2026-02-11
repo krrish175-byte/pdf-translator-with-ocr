@@ -1,0 +1,16 @@
+pdfplumber>=0.10.3
+pillow>=10.1.0
+easyocr>=1.7.1
+opencv-python>=4.8.1.78
+google-translate-py>=1.1.9
+pymupdf>=1.23.8
+numpy>=1.24.3
+pyyaml>=6.0.1
+tqdm>=4.66.1
+reportlab>=4.0.4
+langdetect>=1.0.9
+tenacity>=8.2.0
+deep-translator>=1.11.4
+requests>=2.31.0
+click>=8.1.0
+openai>=1.0.0

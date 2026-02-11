@@ -1,0 +1,27 @@
+translation:
+  source_lang: "en"
+  target_lang: "ja"
+  api_provider: "openai"  # "google", "openai", "deepl"
+  api_key: ""  # set via environment variable for openai/deepl
+  model: "gpt-3.5-turbo" # for openai
+  
+ocr:
+  engine: "easyocr"
+  languages: ["en"]
+  gpu: false
+  text_threshold: 0.7
+  
+image_processing:
+  dpi: 300
+  contrast_enhance: true
+  text_removal_method: "inpaint"
+  font_size_scale: 0.9
+  
+output:
+  preserve_layout: true
+  embed_japanese_fonts: true
+  default_japanese_font: "NotoSansJP"
+  
+logging:
+  level: "INFO"
+  save_translation_log: true
